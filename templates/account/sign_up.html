@@ -1,0 +1,22 @@
+{% extends 'layout/../base.html' %}
+{% block title %}회원가입{% endblock %}
+{#{% block page_title %}회원가입{% endblock %}#}
+{% block content %}
+    <form class="account" method="post">
+        {% for field in form %}
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label for="{{ field.label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <span class="help-block">{{ field.help_text|safe }}</span>
+            {% endif %}
+            {% for error in field.errors %}
+                <label class="control-label">{{ error }}</label>
+            {% endfor %}
+            </div>
+        {% endfor %}
+
+        <input type="submit" class="btn btn-primary" value="가입"/>
+    {% csrf_token %}
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress js %}
+    <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'bower_components/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'bower_components/jquery-timeago/jquery.timeago.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'bower_components/summernote/dist/summernote.js' %}"></script>
+    <script src="{% static 'bower_components/summernote/plugin/summernote-ext-fontstyle.js' %}"></script>
+    <script src="{% static 'bower_components/summernote/plugin/summernote-ext-video.js' %}"></script>
+    <script src="{% static 'bower_components/summernote/lang/summernote-ko-KR.js' %}"></script>
+    <script src="{% static 'js/application.js' %}"></script>
+    {#<script src="{% static 'bower_components/angular/angular.js' %}"></script>#}
+{% endcompress %}

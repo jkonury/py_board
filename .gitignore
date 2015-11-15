@@ -1,0 +1,6 @@
+.idea
+node_modules
+static/bower_components
+staticfiles
+*.sqlite3
+media/documents

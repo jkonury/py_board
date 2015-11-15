@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="ko">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}board{% endblock %}</title>
+    {% include 'stylesheet.html' %}
+
+    <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
+    <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    {% include 'nav.html' %}
+</header>
+
+{% block content %}
+
+{% endblock %}
+
+{#<a href="{% url 'filedownload' %}">filedownload</a>#}
+
+{% include 'javascript.html' %}
+{% block js %}
+
+{% endblock %}
+
+<script>
+{#    $('li[role="presentation"]').click(function () {#}
+{#        $(this).addClass('active');#}
+{#    });#}
+</script>
+</body>
+</html>
+
+
+{% comment %}
+^accounts/ ^ ^signup/$ [name='account_signup']
+^accounts/ ^ ^login/$ [name='account_login']
+^accounts/ ^ ^logout/$ [name='account_logout']
+^accounts/ ^ ^password/change/$ [name='account_change_password']
+^accounts/ ^ ^password/set/$ [name='account_set_password']
+^accounts/ ^ ^inactive/$ [name='account_inactive']
+^accounts/ ^ ^email/$ [name='account_email']
+^accounts/ ^ ^confirm-email/$ [name='account_email_verification_sent']
+^accounts/ ^ ^confirm-email/(?P<key>\w+)/$ [name='account_confirm_email']
+^accounts/ ^ ^confirm_email/(?P<key>\w+)/$
+^accounts/ ^ ^password/reset/$ [name='account_reset_password']
+^accounts/ ^ ^password/reset/done/$ [name='account_reset_password_done']
+^accounts/ ^ ^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$ [name='account_reset_password_from_key']
+^accounts/ ^ ^password/reset/key/done/$ [name='account_reset_password_from_key_done']
+^accounts/ ^social/
+^accounts/ ^facebook/
+^accounts/ ^facebook/login/token/$ [name='facebook_login_by_token']
+^accounts/ ^facebook/channel/$ [name='facebook_channel']
+^accounts/ ^google/
+{% endcomment %}

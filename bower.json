@@ -1,0 +1,28 @@
+{
+  "name": "py_board",
+  "version": "0.0.0",
+  "authors": [
+    "jkonury <jkonury32@gmail>"
+  ],
+  "description": "django board",
+  "keywords": [
+    "python",
+    "django"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.3.4",
+    "angular": "~1.3.15",
+    "jquery": "<=1.11.2",
+    "summernote": "<=0.6.4",
+    "jquery-cookie": "~1.4.1",
+    "jquery-timeago": "~1.4.1"
+  }
+}

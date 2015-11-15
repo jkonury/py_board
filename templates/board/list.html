@@ -1,0 +1,88 @@
+{% extends 'layout/../base.html' %}
+{% block title %}{{ board.title }}{% endblock %}
+{% block content %}
+    {% load gravatar %}
+    {% load utils %}
+
+    <div class="container">
+        <table class="table table-striped table-condensed">
+            <thead>
+            <tr>
+                <td>번호</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>작성일</td>
+            </tr>
+            </thead>
+            <tbody class="table-striped">
+            {% for entry in object_list %}
+            <tr>
+                <td>{{ entry.id }}</td>
+                <td><a href="{% url 'entry-detail' entry.id %}">{{ entry.title }}</a></td>
+                <td><img src="{% gravatar_url entry.user.email|get_hash 20 %}" alt="{{ user.user }}"/>{{ entry.user }}</td>
+                <td><time datetime="{{ entry.created_date|date:'cO' }}">{{ entry.created_date | date:'Y.m.d H:i:s' }}</time></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% comment %}<ul>
+        {% for entry in object_list %}
+            <li>
+                <a href="{% url 'entry-detail' entry.id%}">
+                    <span>{{ entry.id }}</span>
+                    <img src="{% gravatar_url entry.user.email|get_hash%}" alt="{{ user.user }}"/>
+{#                    {% gravatar user.email|get_hash 40 %}#}
+{#                    <img src="http://www.gravatar.com/avatar/{{ user.email|get_hash }}?d=identicon&s=40" alt=""/>#}
+{#                    <img src="http://www.gravatar.com/avatar/{{ 'jkonury32@gmail.com'|get_hash }}?d=identicon" alt=""/>#}
+{#                    {% get_gravatar 'jkonury32@gmail.com'%}#}
+                    <strong>{{ entry.title }}</strong>
+                    <span>{{ entry.user }}</span>
+                    <time datetime="{{ entry.created_date|date:'cO' }}">
+                        {{ entry.created_date|date:'Y.m.d H:i:s' }}
+                    </time>
+                    {% if entry.count_comment %}
+                        <span>{{ entry.count_comment }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% empty %}
+        {% endfor %}
+    </ul>{% endcomment %}
+
+    {% if is_paginated %}
+        <nav>
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="{% url 'entry-list' board.name %}?page={{ page_obj.previous_page_number }}">이전</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">이전</a></li>
+        {% endif %}
+
+        {% for i in paginator.num_pages|get_range%}
+            {% if i == page_obj.number %}
+{#                {{ i }}#}
+                <li class="active"><a href="#">{{ i }}</a></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="{% url 'entry-list' board.name %}?page={{ page_obj.next_page_number }}">다음</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">다음</a></li>
+        {% endif %}
+        </ul>
+        </nav>
+    {% endif %}
+    <section>
+        <a class="btn" href="{% url 'entry-add' board.name %}">글쓰기</a>
+    </section>
+
+    {% if redirect_field_value %}
+        {{ redirect_field_name }}
+        {{ redirect_field_value }}
+    {% endif %}
+
+{% endblock %}

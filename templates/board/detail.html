@@ -1,0 +1,63 @@
+{% extends 'layout/../base.html' %}
+{% load gravatar %}
+{% load utils %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block content %}
+<article class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <img src="{% gravatar_url object.user.email|get_hash 30%}" alt="{{ object.user_email }}"/>
+            <div>{{ object.user.username }}</div>
+            <div class="timeago" title="{{ object.created_date|date:'Y-m-d H:i:s' }}"></div>
+
+        </div>
+        <div class="panel-body">
+            <h2 class="panel-title">{{ object.title }}</h2>
+            <hr/>
+            {{ object.content|safe }}
+        </div>
+    </div>
+</article>
+    <hr/>
+<section data-url="{% url 'comment-list' object.id %}">
+    <div>
+        <a class="navbar-link" href="{% url 'comment-list' object.id %}">댓글 보기</a>
+    </div>
+    <div>
+        <a class="navbar-link" href="{% url 'comment-add' object.id %}">댓글 쓰기</a>
+    </div>
+
+</section>
+
+<section>
+    {% if user.id == object.user.id %}
+        <a href="{% url 'entry-update' object.id %}">편집</a><br/>
+    {% endif %}
+    <a href="{% url 'entry-list' object.board.name %}">목록</a>
+    <br/>
+</section>
+    {% include 'board/comment_list.html' %}
+
+    {% if is_paginated %}
+        <div>
+        <span>
+        {% if page_obj.has_previous %}
+            <a href="{% url 'entry-detail' page_obj.previous_page_number %}">이전</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <a href="{% url 'entry-detail' page_obj.next_page_number %}">다음</a>
+        {% endif %}
+        </span>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('.timeago').timeago()
+    </script>
+{% endblock %}

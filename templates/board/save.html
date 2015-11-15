@@ -1,0 +1,44 @@
+{% extends 'layout/../base.html' %}
+{% block title %}{{ board.title }} 글쓰기{% endblock %}
+
+{% block content %}
+<section class="save">
+<form class="entry" method="post" >
+	{% csrf_token %}
+    {% load utils %}
+    <label for="id_title">title</label>
+    <input id="id_title" type="text" name="title" maxlength="200" value="{{ form.title.value|field_value }}"/>
+
+    <label for="id_category">카테고리</label>
+    <select name="category" id="id_category">
+        <option value="">-----</option>
+        {% for c in category %}
+            <option value="{{ c.id }}"
+                    {% if c.id == form.category.value %}
+                    selected="selected"
+                    {% endif %}>{{ c.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="id_content">{{ form.content.value|safe }}</div>
+
+    <button id="save" class="btn btn-primary">작성</button>
+    <input id="content" name="content" type="hidden"/>
+	<a class="btn" href="{% url 'entry-list' board.name %}">취소</a>
+</form>
+
+</section>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#id_content').summernote();
+
+            $('#save').click(function () {
+                $('#content').val($('#id_content').code());
+                $(this).submit();
+            });
+        });
+    </script>
+{% endblock %}

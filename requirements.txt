@@ -1,0 +1,11 @@
+django
+django-allauth
+django-debug-toolbar
+django-gravatar2
+mysqlclient
+python-decouple
+django-compressor
+django-haystack
+django-mailer
+Whoosh
+django-jsonview

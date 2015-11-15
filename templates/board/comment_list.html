@@ -1,0 +1,36 @@
+{% load gravatar %}
+<ul>
+    {% for entry in object_list %}
+        <li>
+            <img src="{% gravatar_url user.email 40 %}" alt="{{ user.name }}"/>
+            <span>{{ entry.user.name }}</span>
+            <a href="{% url 'entry-detail' entry.parent_id %}"><time datetime="{{ entry.created_date|date:'cO'}}">{{ entry.created_date|date:'Y.m.d H:i' }}</time></a>
+            <strong>{{ entry.title }}</strong>
+            {{ entry.content }}
+        </li>
+    {% empty %}
+        <li>댓글이 없습니다.</li>
+    {% endfor %}
+</ul>
+
+{% if is_paginated %}
+    <div>
+        <span>
+        {% if page_obj.has_previous %}
+            <a href="{% url 'entry-list' board.name %}?page={{ page_obj.previous_page_number }}">이전</a>
+        {% endif %}
+
+        {% load utils %}
+        {% for i in paginator.num_pages|get_range%}
+            {% if i == page_obj.number %}
+                {{ i }}
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="{% url 'entry-list' board.name %}?page={{ page_obj.next_page_number }}">다음</a>
+        {% endif %}
+        </span>
+    </div>
+{% endif %}
