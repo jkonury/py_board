@@ -123,8 +123,8 @@ TEMPLATES = [
                 'django.core.context_processors.request',
 
                 # `allauth` specific context processors
-                'allauth.account.context_processors.account',
-                'allauth.socialaccount.context_processors.socialaccount',
+                # 'allauth.account.context_processors.account',
+                # 'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
